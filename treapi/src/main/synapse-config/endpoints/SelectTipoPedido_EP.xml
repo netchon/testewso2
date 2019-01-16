@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="SelectTipoPedido_EP" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="get" uri-template="http://10.73.225.93:8280/odata/TreEstrangeirosService/Tre_DS/tre_tipo_pedido?$filter=self_id%20eq%20%27{uri.var.self}%27"/>
+</endpoint>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/tratamento" name="TratamentoPedido" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="OPTIONS POST" uri-template="/fases">
+        <inSequence>
+            <filter regex="OPTIONS" source="get-property('axis2', 'HTTP_METHOD')">
+                <then>
+                    <log category="WARN" level="full"/>
+                    <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+                    <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+                    <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+                    <respond/>
+                </then>
+                <else>
+                    <log level="custom">
+                        <property expression="json-eval($.)" name="Entrada"/>
+                    </log>
+                    <sequence key="DadosFase_SEQ"/>
+                    <log category="WARN" description="" level="custom">
+                        <property expression="$ctx:id_fase_pedido" name="id_fase_pedido"/>
+                    </log>
+                    <sequence key="Host_SEQ"/>
+                    <sequence key="GetCodeFase_SEQ"/>
+                    <switch source="$ctx:code">
+                        <case regex="AD">
+                            <log category="WARN" level="custom">
+                                <property name="AD" value="Analise Documental"/>
+                            </log>
+                            <sequence key="FaseAnalise_SEQ"/>
+                        </case>
+                        <case regex="DEP">
+                            <log category="WARN" level="custom">
+                                <property name="DEP" value="Deferimento de Processo"/>
+                            </log>
+                            <sequence key="FaseDeferimento"/>
+                        </case>
+                        <case regex="DP">
+                            <log category="WARN" level="custom">
+                                <property name="DP" value="Despacho de Processo"/>
+                            </log>
+                            <sequence key="FaseDespacho_SEQ"/>
+                        </case>
+                        <case regex="EC">
+                            <log category="WARN" description="" level="custom">
+                                <property name="EC" value="Emissao de Cartao"/>
+                            </log>
+                            <sequence key="FaseEmissao_SEQ"/>
+                        </case>
+                        <default>
+                            <sequence key="Erro_SEQ"/>
+                        </default>
+                    </switch>
+                </else>
+            </filter>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

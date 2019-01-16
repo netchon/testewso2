@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="EstrangeiroNacionalidade_EP" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="get" uri-template="{uri.var.host}TreEstrangeirosService/Tre_DS/nacionalidade_v"/>
+</endpoint>

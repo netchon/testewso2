@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="DadosFase_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property description="id_fase_pedido" expression="json-eval($._postfasesexecucao.id)" name="id_fase_pedido" scope="default" type="STRING"/>
+    <property description="uuid" expression="json-eval($._postfasesexecucao.user_uuid)" name="uuid" scope="default" type="STRING"/>
+    <property description="uuid_fase" expression="json-eval($._postfasesexecucao.user_uuid_fase)" name="uuid_fase" scope="default" type="STRING"/>
+    <property description="obs" expression="json-eval($._postfasesexecucao.observacao)" name="obs" scope="default" type="STRING"/>
+    <property description="estado" expression="json-eval($._postfasesexecucao.estado)" name="estado" scope="default" type="STRING"/>
+    <property description="parecer" expression="json-eval($._postfasesexecucao.parecer)" name="parecer" scope="default" type="STRING"/>
+    <property description="id_pedido" expression="json-eval($._postfasesexecucao.id_pedido)" name="id_pedido" scope="default" type="STRING"/>
+    <property description="id_tipo_pedido" expression="json-eval($._postfasesexecucao.id_tp_pedido)" name="id_tp_pedido" scope="default" type="STRING"/>
+    <property description="emissao" expression="json-eval($._postfasesexecucao.emissao)" name="emissao" scope="default" type="STRING"/>
+    <property description="validade" expression="json-eval($._postfasesexecucao.validade)" name="validade" scope="default" type="STRING"/>
+    <property description="id_arquivo" expression="json-eval($._postfasesexecucao.id_arquivo)" name="id_arquivo" scope="default" type="STRING"/>
+</sequence>

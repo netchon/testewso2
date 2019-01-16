@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="DadosEnicio_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property description="observacoes" expression="json-eval($.anotacoes)" name="observacoes" scope="default" type="STRING"/>
+    <property description="uuid" expression="json-eval($.uuid)" name="uuid" scope="default" type="STRING"/>
+    <property description="tipopedido" expression="json-eval($.biografico.tipopedido)" name="tipopedido" scope="default" type="STRING"/>
+</sequence>

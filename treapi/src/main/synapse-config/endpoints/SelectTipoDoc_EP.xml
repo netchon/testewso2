@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="SelectTipoDoc_EP" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="get" uri-template="http://10.73.225.93:9763/odata/TreEstrangeirosService/Tre_DS/tre_tipo_documento"/>
+</endpoint>

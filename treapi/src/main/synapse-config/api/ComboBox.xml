@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/combobox" name="ComboBox" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/residencia/{nivel}/{self_id}">
+        <inSequence>
+            <log level="full"/>
+            <property description="uri.var.nivel" expression="get-property('uri.var.nivel')" name="uri.var.nivel" scope="default" type="STRING"/>
+            <property description="uri.var.self_id" expression="get-property('uri.var.self_id')" name="uri.var.self_id" scope="default" type="STRING"/>
+            <sequence key="Host_Dev_SEQ"/>
+            <log level="custom">
+                <property expression="$ctx:uri.var.nivell" name="nivel"/>
+                <property expression="$ctx:uri.var.self_idd" name="self_id"/>
+            </log>
+            <header name="Accept" scope="transport" value="application/json"/>
+            <call>
+                <endpoint key="Residencia_EP"/>
+            </call>
+            <log category="WARN" level="full"/>
+            <log level="full"/>
+            <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+            <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+            <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+            <sequence key="Cors_SEQ"/>
+            <log category="WARN" level="full"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/nacionalidade">
+        <inSequence>
+            <log level="full"/>
+            <sequence key="Host_Dev_SEQ"/>
+            <header action="remove" name="Content-type" scope="transport"/>
+            <header name="Accept" scope="transport" value="application/json"/>
+            <call>
+                <endpoint key="EstrangeiroNacionalidade_EP"/>
+            </call>
+            <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+            <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+            <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+            <sequence key="Cors_SEQ"/>
+            <log category="WARN" level="full"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/tipopedido/{self_id}">
+        <inSequence>
+            <log level="full"/>
+            <property description="uri.var.self" expression="get-property('uri.var.self_id')" name="uri.var.self" scope="default" type="STRING"/>
+            <header action="remove" name="Content-Type" scope="transport"/>
+            <header name="Accept" scope="transport" value="application/json"/>
+            <call>
+                <endpoint key="SelectTipoPedido_EP"/>
+            </call>
+            <log category="WARN" level="full"/>
+            <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+            <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+            <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+            <sequence key="Cors_SEQ"/>
+            <log category="WARN" level="full"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/lista/{code}">
+        <inSequence>
+            <log level="full"/>
+            <sequence key="Host_SEQ"/>
+            <property description="uri.var.code" expression="get-property('uri.var.code')" name="uri.var.code" scope="default" type="STRING"/>
+            <header action="remove" name="Content-Type" scope="transport"/>
+            <header name="Accept" scope="transport" value="application/json"/>
+            <call>
+                <endpoint key="SelectListaFase_EP"/>
+            </call>
+            <log category="WARN" level="full"/>
+            <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+            <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+            <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+            <sequence key="Cors_SEQ"/>
+            <log category="WARN" level="full"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/tipodoc">
+        <inSequence>
+            <log level="full"/>
+            <header action="remove" name="Content-Type" scope="transport"/>
+            <header name="Accept" scope="transport" value="application/json"/>
+            <call>
+                <endpoint key="SelectTipoDoc_EP"/>
+            </call>
+            <log category="WARN" level="full"/>
+            <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+            <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+            <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+            <sequence key="Cors_SEQ"/>
+            <log category="WARN" level="full"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

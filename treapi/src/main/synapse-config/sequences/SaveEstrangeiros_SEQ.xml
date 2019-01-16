@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SaveEstrangeiros_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="full"/>
+    <header action="remove" name="Action" scope="transport"/>
+    <header action="remove" name="Content-Type" scope="transport"/>
+    <payloadFactory media-type="json">
+        <format>{"_postestrangeiro":{"data_emissao":"$1","data_validade":"$2","emitido_por":"$3","nome":"$4","nome_pai":"$5","nome_mae":"$6","dt_nascimento":"$7","sexo":"$8","estado_civil":"$9","ilha_id":"$10","concelho_id":"$11","freguesia_id":"$12","localidade_id":"$13","zona_id":"$14","telefone":"$15","email":"$16","nacionalidade_id":"$17","user_uuid":"$18","num_pass":"$19"}}</format>
+        <args>
+            <arg evaluator="json" expression="$.biografico.dataemissaoPass"/>
+            <arg evaluator="json" expression="$.biografico.datavalidadePass"/>
+            <arg evaluator="json" expression="$.biografico.emitidopor"/>
+            <arg evaluator="json" expression="$.biografico.nome"/>
+            <arg evaluator="json" expression="$.biografico.nomepai"/>
+            <arg evaluator="json" expression="$.biografico.nomemae"/>
+            <arg evaluator="json" expression="$.biografico.datanascimento"/>
+            <arg evaluator="json" expression="$.biografico.sexo"/>
+            <arg evaluator="json" expression="$.biografico.estadocivil"/>
+            <arg evaluator="json" expression="$.contacto.ilha"/>
+            <arg evaluator="json" expression="$.contacto.concelho"/>
+            <arg evaluator="json" expression="$.contacto.freguesia"/>
+            <arg evaluator="json" expression="$.contacto.local"/>
+            <arg evaluator="json" expression="$.contacto.zona"/>
+            <arg evaluator="json" expression="$.contacto.telefone"/>
+            <arg evaluator="json" expression="$.contacto.email"/>
+            <arg evaluator="json" expression="$.biografico.nacionalidade"/>
+            <arg evaluator="json" expression="$.uuid"/>
+            <arg evaluator="json" expression="$.biografico.numpass"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <log description="" level="custom">
+        <property expression="json-eval($.)" name="estrangeiro"/>
+    </log>
+    <call>
+        <endpoint key="InsertEstrangeiro_EP"/>
+    </call>
+    <log level="full"/>
+    <property description="estrangeiros_id" expression="json-eval($.inserted_id_estrangeiro.id_estrangeiros)" name="estrangeiros_id" scope="default" type="STRING"/>
+    <log category="WARN" level="custom">
+        <property expression="$ctx:estrangeiros_id" name="id_estrangeiro"/>
+    </log>
+</sequence>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SaveEndereco_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <enrich>
+        <source clone="true" xpath="$ctx:dados_entrada"/>
+        <target type="body"/>
+    </enrich>
+    <payloadFactory media-type="json">
+        <format>{"_postendereco": {"ilha": "$1","concelho": "$2","freguesia": "$3","localidade": "$4","zona": "$5"}}</format>
+        <args>
+            <arg evaluator="json" expression="$.Body.contacto.ilha"/>
+            <arg evaluator="json" expression="$.Body.contacto.concelho"/>
+            <arg evaluator="json" expression="$.Body.contacto.freguesia"/>
+            <arg evaluator="json" expression="$.Body.contacto.local"/>
+            <arg evaluator="json" expression="$.Body.contacto.zona"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <call>
+        <endpoint key="InsertEndereco_EP"/>
+    </call>
+    <property description="id_endereco" expression="json-eval($.insert_id_endereco.ID)" name="id_endereco" scope="default" type="STRING"/>
+    <log category="WARN" description="" level="custom">
+        <property expression="$ctx:id_endereco" name="endereco"/>
+    </log>
+</sequence>

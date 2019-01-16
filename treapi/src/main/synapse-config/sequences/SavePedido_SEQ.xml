@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SavePedido_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <enrich>
+        <source clone="true" xpath="$ctx:dados_entrada"/>
+        <target type="body"/>
+    </enrich>
+    <log category="WARN" level="custom">
+        <property expression="json-eval($.)" name="Enrich"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>{"_postpedido": {"num_pass":"$1","decisao_final": "$2","data_final":$3,"user_uuid": "$4","id_tipo_pedido":"$5","anotacoes":"$6","id_endereco":"$7","id_biometrico":"$8"}}</format>
+        <args>
+            <arg evaluator="json" expression="$.Body.biografico.numpass"/>
+            <arg value="PENDENTE"/>
+            <arg value="null"/>
+            <arg evaluator="json" expression="$.Body.uuid"/>
+            <arg evaluator="json" expression="$.Body.biografico.tipopedido"/>
+            <arg value="anotocao"/>
+            <arg evaluator="xml" expression="$ctx:id_endereco"/>
+            <arg evaluator="xml" expression="$ctx:id_biometrico"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <log category="WARN" level="custom">
+        <property expression="json-eval($.)" name="pedido"/>
+    </log>
+    <call>
+        <endpoint key="InsertPedido_EP"/>
+    </call>
+    <property description="id_pedido" expression="json-eval($.insert_id_pedido.ID)" name="id_pedido" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="$ctx:id_pedido" name="id_pedido"/>
+    </log>
+</sequence>

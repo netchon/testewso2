@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="FaseEmissao_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <payloadFactory media-type="json">
+        <format>{"_postupdatefase":{"id":"$1","parecer":"$2","observacao":"$3","user_uuid_fase":"$4","estado":"$5"}}</format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:id_fase_pedido"/>
+            <arg evaluator="xml" expression="$ctx:parecer"/>
+            <arg evaluator="xml" expression="$ctx:obs"/>
+            <arg evaluator="xml" expression="$ctx:uuid_fase"/>
+            <arg value="Emitido"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <call>
+        <endpoint key="UpdateFase_EP"/>
+    </call>
+    <log description="" level="custom">
+        <property expression="json-eval($.)" name="update"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>{"_postupdatepedido":{"id_pedido":"$1","decisao_final":"$2"}}</format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:id_pedido"/>
+            <arg value="Emitido"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <call>
+        <endpoint key="UpdatePedido_EP"/>
+    </call>
+    <log category="WARN" level="custom">
+        <property expression="json-eval($.)" name="updatepedido"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>{"_postupdatepdestrangeiro":{"id_pedido":"$1","emissao":"$2","validade":"$3","id_arquivo":"$4"}}</format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:id_pedido"/>
+            <arg evaluator="xml" expression="$ctx:emissao"/>
+            <arg evaluator="xml" expression="$ctx:validade"/>
+            <arg evaluator="xml" expression="$ctx:id_arquivo"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <call>
+        <endpoint key="UpdatePedidoEstrangeiro_EP"/>
+    </call>
+    <log level="custom">
+        <property expression="json-eval($.)" name="update_pd_estrangeiro"/>
+    </log>
+</sequence>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="Host_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property description="uri.var.host" name="uri.var.host" scope="default" type="STRING" value="http://10.73.225.93:8280/services/"/>
+</sequence>

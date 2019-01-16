@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/pedidos" name="treapi" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="OPTIONS POST" uri-template="/estrangeiro">
+        <inSequence>
+            <filter regex="OPTIONS" source="get-property('axis2', 'HTTP_METHOD')">
+                <then>
+                    <log category="WARN" level="full"/>
+                    <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+                    <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+                    <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+                    <respond/>
+                </then>
+                <else>
+                    <log category="WARN" description="" level="custom">
+                        <property expression="json-eval($.)" name="entrada"/>
+                    </log>
+                    <sequence key="DadosEnicio_SEQ"/>
+                    <sequence key="Host_SEQ"/>
+                    <property description="dados_entrada" expression="$body" name="dados_entrada" scope="default" type="OM"/>
+                    <log level="custom">
+                        <property expression="$ctx:dados_entrada" name="dados_entrada"/>
+                    </log>
+                    <sequence key="SaveEstrangeiros_SEQ"/>
+                    <filter xpath="boolean($ctx:estrangeiros_id='')">
+                        <then>
+                            <sequence key="Erro_SEQ"/>
+                        </then>
+                        <else>
+                            <sequence key="SaveBiometrico_SEQ"/>
+                            <sequence key="SaveEndereco_SEQ"/>
+                            <filter xpath="boolean($ctx:id_endereco='')">
+                                <then>
+                                    <sequence key="Erro_SEQ"/>
+                                </then>
+                                <else>
+                                    <sequence key="SavePedido_SEQ"/>
+                                    <filter xpath="boolean($ctx:id_pedido='')">
+                                        <then>
+                                            <sequence key="Erro_SEQ"/>
+                                        </then>
+                                        <else>
+                                            <sequence key="SaveAssoc_SEQ"/>
+                                        </else>
+                                    </filter>
+                                </else>
+                            </filter>
+                        </else>
+                    </filter>
+                </else>
+            </filter>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="OPTIONS POST" uri-template="/upload">
+        <inSequence>
+            <filter regex="OPTIONS" source="get-property('axis2', 'HTTP_METHOD')">
+                <then>
+                    <log category="WARN" level="full"/>
+                    <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+                    <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+                    <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+                    <respond/>
+                </then>
+                <else>
+                    <log description="" level="custom">
+                        <property expression="json-eval($.)" name="file"/>
+                    </log>
+                    <sequence key="Host_SEQ"/>
+                    <property description="base" expression="//ficheiro" name="base" scope="default" type="STRING" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"/>
+                    <property description="filename" expression="//ficheiro/@filename" name="filename" scope="default" type="STRING" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"/>
+                    <log description="" level="custom">
+                        <property expression="$ctx:base" name="base64"/>
+                        <property expression="$ctx:filename" name="filename"/>
+                    </log>
+                    <payloadFactory media-type="json">
+                        <format>{"_postupload": {"filename": "$1","mimetype": "$2","code_doc": "$3","file_content": "$4"}}</format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:filename"/>
+                            <arg value="application/json"/>
+                            <arg value="QQ"/>
+                            <arg evaluator="xml" expression="$ctx:base"/>
+                        </args>
+                    </payloadFactory>
+                    <header name="Content-Type" scope="transport" value="application/json"/>
+                    <log level="custom">
+                        <property expression="json-eval($.)" name="log"/>
+                    </log>
+                    <call>
+                        <endpoint key="InsertFile_EP"/>
+                    </call>
+                    <property description="id_file" expression="json-eval($.file.ID)" name="id_file" scope="default" type="STRING"/>
+                    <log level="custom">
+                        <property expression="json-eval($.file.ID)" name="id_file"/>
+                    </log>
+                    <payloadFactory media-type="json">
+                        <format>{"id_file":"$1"}</format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:id_file"/>
+                        </args>
+                    </payloadFactory>
+                    <property description="" name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+                    <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+                    <property description="" name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+                    <respond/>
+                </else>
+            </filter>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="OPTIONS POST" uri-template="/deletedoc">
+        <inSequence>
+            <filter regex="OPTIONS" source="get-property('axis2', 'HTTP_METHOD')">
+                <then>
+                    <log category="WARN" level="full"/>
+                    <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+                    <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+                    <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+                    <respond/>
+                </then>
+                <else>
+                    <log category="WARN" description="" level="custom">
+                        <property expression="json-eval($.)" name="entrada"/>
+                    </log>
+                    <sequence key="Host_SEQ"/>
+                    <property description="id_doc" expression="json-eval($.id_doc)" name="id_doc" scope="default" type="STRING"/>
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <soapenv:Envelope xmlns:sit="http://sitrep.def.cv" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                                <soapenv:Header/>
+                                <soapenv:Body>
+                                    <sit:delete_file_operation>
+                                        <sit:id>$1</sit:id>
+                                    </sit:delete_file_operation>
+                                </soapenv:Body>
+                            </soapenv:Envelope>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:id_doc"/>
+                        </args>
+                    </payloadFactory>
+                    <header name="Action" scope="default" value="urn:delete_file_operation"/>
+                    <log level="full"/>
+                    <call>
+                        <endpoint key="DeleteDocAssoc_EP"/>
+                    </call>
+                    <log category="WARN" description="" level="full"/>
+                    <property description="" name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+                    <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+                    <property description="" name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+                    <respond/>
+                </else>
+            </filter>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

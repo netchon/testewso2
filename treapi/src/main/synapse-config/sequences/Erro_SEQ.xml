@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="Erro_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <payloadFactory media-type="json">
+        <format>{"status": $1,"statusText":"$2"}</format>
+        <args>
+            <arg value="false"/>
+            <arg value="Erro, Contactar Adminstrador"/>
+        </args>
+    </payloadFactory>
+    <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+    <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+    <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+    <respond/>
+</sequence>

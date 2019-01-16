@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="treapi" groupId="com.example.treapi.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/treapi.xml</file>
+    </artifact>
+    <artifact name="ComboBox" groupId="com.example.treapi.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/ComboBox.xml</file>
+    </artifact>
+    <artifact name="EstrangeiroNacionalidade_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/EstrangeiroNacionalidade_EP.xml</file>
+    </artifact>
+    <artifact name="Cors_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/Cors_SEQ.xml</file>
+    </artifact>
+    <artifact name="Residencia_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/Residencia_EP.xml</file>
+    </artifact>
+    <artifact name="Host_Dev_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/Host_Dev_SEQ.xml</file>
+    </artifact>
+    <artifact name="SavePedido_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SavePedido_SEQ.xml</file>
+    </artifact>
+    <artifact name="SaveEstrangeiros_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SaveEstrangeiros_SEQ.xml</file>
+    </artifact>
+    <artifact name="InsertEstrangeiro_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertEstrangeiro_EP.xml</file>
+    </artifact>
+    <artifact name="Host_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/Host_SEQ.xml</file>
+    </artifact>
+    <artifact name="InsertPedido_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertPedido_EP.xml</file>
+    </artifact>
+    <artifact name="SaveFaseExecucao_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SaveFaseExecucao_SEQ.xml</file>
+    </artifact>
+    <artifact name="Erro_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/Erro_SEQ.xml</file>
+    </artifact>
+    <artifact name="InsertFaseExec_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertFaseExec_EP.xml</file>
+    </artifact>
+    <artifact name="DadosEnicio_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/DadosEnicio_SEQ.xml</file>
+    </artifact>
+    <artifact name="SavePedidoEstrangeiro_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SavePedidoEstrangeiro_SEQ.xml</file>
+    </artifact>
+    <artifact name="InsertPedidoEstrangeiro" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertPedidoEstrangeiro.xml</file>
+    </artifact>
+    <artifact name="GetCodeFase_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetCodeFase_SEQ.xml</file>
+    </artifact>
+    <artifact name="GetCodeFase_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/GetCodeFase_EP.xml</file>
+    </artifact>
+    <artifact name="TratamentoPedido" groupId="com.example.treapi.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/TratamentoPedido.xml</file>
+    </artifact>
+    <artifact name="UpdateFase_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/UpdateFase_EP.xml</file>
+    </artifact>
+    <artifact name="DadosFase_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/DadosFase_SEQ.xml</file>
+    </artifact>
+    <artifact name="FaseAnalise_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/FaseAnalise_SEQ.xml</file>
+    </artifact>
+    <artifact name="FaseDeferimento" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/FaseDeferimento.xml</file>
+    </artifact>
+    <artifact name="FaseDespacho_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/FaseDespacho_SEQ.xml</file>
+    </artifact>
+    <artifact name="FaseEmissao_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/FaseEmissao_SEQ.xml</file>
+    </artifact>
+    <artifact name="UpdatePedido_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/UpdatePedido_EP.xml</file>
+    </artifact>
+    <artifact name="UpdatePedidoEstrangeiro_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/UpdatePedidoEstrangeiro_EP.xml</file>
+    </artifact>
+    <artifact name="SaveEndereco_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SaveEndereco_SEQ.xml</file>
+    </artifact>
+    <artifact name="InsertEndereco_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertEndereco_EP.xml</file>
+    </artifact>
+    <artifact name="InsertFile_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertFile_EP.xml</file>
+    </artifact>
+    <artifact name="SelectTipoPedido_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/SelectTipoPedido_EP.xml</file>
+    </artifact>
+    <artifact name="SaveBiometrico_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SaveBiometrico_SEQ.xml</file>
+    </artifact>
+    <artifact name="InsertBiometrico_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertBiometrico_EP.xml</file>
+    </artifact>
+    <artifact name="SaveAssoc_SEQ" groupId="com.example.treapi.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SaveAssoc_SEQ.xml</file>
+    </artifact>
+    <artifact name="InsertDocAssoc_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/InsertDocAssoc_EP.xml</file>
+    </artifact>
+    <artifact name="SelectListaFase_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/SelectListaFase_EP.xml</file>
+    </artifact>
+    <artifact name="SelectTipoDoc_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/SelectTipoDoc_EP.xml</file>
+    </artifact>
+    <artifact name="DeleteDocAssoc_EP" groupId="com.example.treapi.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/DeleteDocAssoc_EP.xml</file>
+    </artifact>
+</artifacts>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="DeleteDocAssoc_EP" xmlns="http://ws.apache.org/ns/synapse">
+    <address uri="http://10.73.225.93:8280/services/FileService.SOAP11Endpoint"/>
+</endpoint>

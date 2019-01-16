@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SaveAssoc_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <enrich>
+        <source clone="true" xpath="$ctx:dados_entrada"/>
+        <target type="body"/>
+    </enrich>
+    <log category="WARN" level="custom">
+        <property expression="json-eval($.)" name="Enrich"/>
+    </log>
+    <property description="count_file" expression="count(//documentos)" name="count_file" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="$ctx:count_file" name="documentos"/>
+    </log>
+    <iterate continueParent="true" description="" expression="//documentos" id="id_iterate" sequential="true">
+        <target>
+            <sequence>
+                <log category="WARN" level="full"/>
+                <payloadFactory media-type="json">
+                    <format>{"_postassoc":{"documento_id":"$1","tipo_doc_id":"$2", "tipo":"$3","tabela_relacao":"$4", "id_relacao":"$5"}}</format>
+                    <args>
+                        <arg evaluator="xml" expression="//id_doc"/>
+                        <arg evaluator="xml" expression="//tipo_doc"/>
+                        <arg value="default"/>
+                        <arg value="TRE_PEDIDO"/>
+                        <arg evaluator="xml" expression="$ctx:id_pedido"/>
+                    </args>
+                </payloadFactory>
+                <header name="Content-Type" scope="transport" value="application/json"/>
+                <call>
+                    <endpoint key="InsertDocAssoc_EP"/>
+                </call>
+                <property description="id_doc_assoc" expression="json-eval($.insert_id_tre_doc_assoc.ID)" name="id_doc_assoc" scope="default" type="STRING"/>
+                <log category="WARN" level="custom">
+                    <property expression="$ctx:id_doc_assoc" name="id_assoc"/>
+                </log>
+            </sequence>
+        </target>
+    </iterate>
+    <property description="info" name="info" scope="default">
+        <resposta/>
+    </property>
+    <aggregate id="id_iterate">
+        <completeCondition>
+            <messageCount max="{get-property('count_file')}" min="{get-property('count_file')}"/>
+        </completeCondition>
+        <onComplete enclosingElementProperty="info" expression="$body/*[1]">
+            <log category="WARN" description="" level="custom">
+                <property expression="json-eval($.)" name="agg"/>
+            </log>
+            <filter xpath="boolean($ctx:id_doc_assoc='')">
+                <then>
+                    <sequence key="Erro_SEQ"/>
+                </then>
+                <else>
+                    <sequence key="SaveFaseExecucao_SEQ"/>
+                    <filter xpath="boolean($ctx:id_fase_exec='')">
+                        <then>
+                            <sequence key="Erro_SEQ"/>
+                        </then>
+                        <else>
+                            <sequence key="SavePedidoEstrangeiro_SEQ"/>
+                            <payloadFactory media-type="json">
+                                <format>{"status": $1,"statusText":"$2"}</format>
+                                <args>
+                                    <arg value="true"/>
+                                    <arg value="Sucesso"/>
+                                </args>
+                            </payloadFactory>
+                            <property name="Access-Control-Allow-Origin" scope="transport" type="STRING" value="*"/>
+                            <property name="Access-Control-Allow-Methods" scope="transport" type="STRING" value="GET,PUT,POST,DELETE,PATCH,OPTIONS"/>
+                            <property name="Access-Control-Allow-Headers" scope="transport" type="STRING" value="Authorization,Access-Control-Allow-Origin,Content-Type"/>
+                            <respond/>
+                        </else>
+                    </filter>
+                </else>
+            </filter>
+        </onComplete>
+    </aggregate>
+</sequence>

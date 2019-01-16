@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="GetCodeFase_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <header action="remove" name="Content-Type" scope="transport"/>
+    <property description="uri.var.id" expression="$ctx:id_fase_pedido" name="uri.var.id" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="$ctx:uri.var.id" name="id"/>
+    </log>
+    <header name="Accept" scope="transport" value="application/json"/>
+    <call>
+        <endpoint key="GetCodeFase_EP"/>
+    </call>
+    <log category="WARN" level="custom">
+        <property expression="json-eval($.)" name="code_fase"/>
+    </log>
+    <property description="flag_fim" expression="json-eval($.fase.flag_fim)" name="flag_fim" scope="default" type="STRING"/>
+    <property description="code" expression="json-eval($.fase.code)" name="code" scope="default" type="STRING"/>
+    <log category="WARN" description="" level="custom">
+        <property expression="$ctx:flag_fim" name="flag_fim"/>
+        <property expression="$ctx:code" name="code"/>
+    </log>
+</sequence>

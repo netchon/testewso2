@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SaveFaseExecucao_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <payloadFactory description="" media-type="json">
+        <format>{"_postfasesexecucao": {"id_tp_pedido":"$1","id_fase":"$2","id_pedido":"$3","dm_estado":$4,"user_uuid":"$5","parecer":$6,"observacao":"$7","user_uuid_fase":$8,"estado":"$9"}}</format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:tipopedido"/>
+            <arg value="da27fc40-0ac1-11e9-bfeb-000c297e6eb7"/>
+            <arg evaluator="xml" expression="$ctx:id_pedido"/>
+            <arg value="null"/>
+            <arg evaluator="xml" expression="$ctx:uuid"/>
+            <arg value="null"/>
+            <arg evaluator="xml" expression="$ctx:observacoes"/>
+            <arg value="null"/>
+            <arg value="PENDENTE"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <log category="WARN" level="custom">
+        <property expression="json-eval($.)" name="fase"/>
+    </log>
+    <call>
+        <endpoint key="InsertFaseExec_EP"/>
+    </call>
+    <property description="id_fase_exec" expression="json-eval($.insert_id_exec.ID)" name="id_fase_exec" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="$ctx:id_fase_exec" name="id_fase_exec"/>
+    </log>
+</sequence>

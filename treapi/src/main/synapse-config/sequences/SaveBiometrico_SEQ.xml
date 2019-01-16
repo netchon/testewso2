@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SaveBiometrico_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <enrich>
+        <source clone="true" xpath="$ctx:dados_entrada"/>
+        <target type="body"/>
+    </enrich>
+    <payloadFactory media-type="json">
+        <format>{"_postbiometrico": {"foto": "$1","assinatura": "$2","digital_drt": "$3","digital_esq": "$4","altura": "$5"}}</format>
+        <args>
+            <arg evaluator="json" expression="$.Body.biometrico.foto"/>
+            <arg evaluator="json" expression="$.Body.biometrico.assinatura"/>
+            <arg evaluator="json" expression="$.Body.biometrico.digital_drt"/>
+            <arg evaluator="json" expression="$.Body.biometrico.digital_esq"/>
+            <arg evaluator="json" expression="$.Body.biometrico.altura"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <call>
+        <endpoint key="InsertBiometrico_EP"/>
+    </call>
+    <property description="id_biometrico" expression="json-eval($.biometricos.ID)" name="id_biometrico" scope="default" type="STRING"/>
+    <log category="WARN" description="" level="custom">
+        <property expression="$ctx:id_biometrico" name="biometrico"/>
+    </log>
+</sequence>

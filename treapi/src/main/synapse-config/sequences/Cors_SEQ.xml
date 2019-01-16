@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="Cors_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property description="message" name="messageType" scope="axis2" type="STRING" value="application/json"/>
+    <property description="content" name="ContentType" scope="axis2" type="STRING" value="application/json"/>
+</sequence>

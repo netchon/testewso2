@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SavePedidoEstrangeiro_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <payloadFactory media-type="json">
+        <format>{"_postpedidoestrangeiros":{"id_pedido":"$1", "id_estrangeiros":"$2","emissao":$3,"validade":$4,"id_arquivo":$5,"self_id":"$6"}}</format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:id_pedido"/>
+            <arg evaluator="xml" expression="$ctx:estrangeiros_id"/>
+            <arg value="null"/>
+            <arg value="null"/>
+            <arg value="null"/>
+            <arg value="0"/>
+        </args>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <log category="WARN" level="custom">
+        <property expression="json-eval($.)" name="pedido_estrangeiro"/>
+    </log>
+    <call>
+        <endpoint key="InsertPedidoEstrangeiro"/>
+    </call>
+    <property description="id_pedido_estrangeiro" expression="json-eval($.insert_id_tre_pedido_estrangeiro.ID)" name="id_pedido_estrangeiro" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="$ctx:id_pedido_estrangeiro" name="id_pedido_estrangeiro"/>
+    </log>
+</sequence>
